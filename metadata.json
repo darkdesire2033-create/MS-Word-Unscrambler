@@ -1,0 +1,6 @@
+{
+  "name": "Bharat Rail Fare Finder V2 (Unofficial Demo)",
+  "description": "Offline-first Indian Railways UTS prototype and fare calculator with voice search, multi-language support, rotating QR demo, and offline ticket verification.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #f6f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #1a56db;
+    --primary-hover: #1644ad;
+    --accent: #f59e0b;
+  }
+
+  .dark {
+    --bg: #0b1220;
+    --card: #131c2f;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --border: #1f293d;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #fbbf24;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* Card custom styling matching requirements */
+.rail-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
+}
+
+/* Pseudo QR matrix styling */
+.qr-pixel-b {
+  background-color: #000000;
+}
+.qr-pixel-w {
+  background-color: #ffffff;
+}
+
+/* Subtle moving railway watermark on the ticket */
+@keyframes watermarkShift {
+  0% { transform: translate(0, 0) rotate(-18deg); }
+  50% { transform: translate(4px, 4px) rotate(-18deg); }
+  100% { transform: translate(0, 0) rotate(-18deg); }
+}
+
+.ticket-watermark {
+  animation: watermarkShift 8s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Print optimizations for sample ticket */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  #printable-ticket {
+    box-shadow: none !important;
+    border: 2px solid #000000 !important;
+    margin: 0 auto !important;
+    max-width: 600px !important;
+  }
+}
+
