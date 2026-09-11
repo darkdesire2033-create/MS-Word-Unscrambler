@@ -5,6 +5,7 @@ import { LanguageCode, Station, TrainSchedule, StoredTicket } from './types';
 import { TicketCard } from './components/TicketCard';
 import { OfflineTicketsList } from './components/OfflineTicketsList';
 import { TTEVerifyModal } from './components/TTEVerifyModal';
+import { AndroidAPKModal } from './components/AndroidAPKModal';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import {
   Mic,
@@ -22,6 +23,7 @@ import {
   Zap,
   Ticket as TicketIcon,
   Info,
+  Smartphone,
 } from 'lucide-react';
 
 export default function App() {
@@ -93,6 +95,7 @@ export default function App() {
   // PWA Install hook
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
   const [showIOSModal, setShowIOSModal] = useState<boolean>(false);
+  const [showAndroidModal, setShowAndroidModal] = useState<boolean>(false);
 
   // Datalist IDs
   const fromDatalistId = useId();
@@ -430,10 +433,20 @@ export default function App() {
             {/* Dark / Light toggle */}
             <button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition"
+              className="p-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition cursor-pointer"
               title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-600" />}
+            </button>
+
+            {/* Android / APK Package Modal Button */}
+            <button
+              onClick={() => setShowAndroidModal(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+              title="Generate Android APK / Install on Android"
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Android / APK</span>
             </button>
 
             {/* PWA In-App Install Button */}
@@ -1022,6 +1035,15 @@ export default function App() {
         isOpen={isTTEModalOpen}
         onClose={() => setIsTTEModalOpen(false)}
         activeTicket={activeGeneratedTicket}
+      />
+
+      {/* Android APK & Install Modal */}
+      <AndroidAPKModal
+        isOpen={showAndroidModal}
+        onClose={() => setShowAndroidModal(false)}
+        onInstallPWA={install}
+        isInstallable={isInstallable}
+        isInstalled={isInstalled}
       />
 
       {/* iOS Installation Instruction Modal */}
